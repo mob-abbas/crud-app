@@ -1,0 +1,25 @@
+{
+  "name": "task-1-17th-apr",
+  "version": "1.0.0",
+  "description": "This is my first task assigned by Mr. Ovais on April 17th 2019. I am supposed to design a simple CRUD application with Redis and Socket.io integration. The DB I am supposed to use in MongoDB.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "nodemon app.js"
+  },
+  "keywords": [
+    "task1"
+  ],
+  "author": "Abbas Ahmad",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.4",
+    "mongoose": "^5.5.2",
+    "redis": "^2.8.0",
+    "socket.io": "^2.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.18.11"
+  }
+}
