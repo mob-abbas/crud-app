@@ -5,11 +5,10 @@ const mongoose = require("mongoose");
  */
 mongoose.Promise = global.Promise;
 
-mongoose.connect("mongodb://localhost:27017/elib", { useNewUrlParser: true }, err => {
-    if(err){
-        return console.log(`Error connecting to MongoDB: ${err}`);
-    }
-    console.log("Mongoose connected to the MongoDB on default port: 27017");
+const mongoURI = process.env.MONGODB_URI;
+
+mongoose.connect(mongoURI || 'mongodb://localhost:27017/elib', {
+    useMongoClient: true
 });
 
 module.exports = {mongoose}

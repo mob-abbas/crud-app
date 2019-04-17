@@ -3,7 +3,7 @@ const bodyParser = require("body-parser");
 
 const booksRouter = require("./controllers/books/router").router;
 
-var port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(bodyParser.json());
 app.get("/", (req, res) => {
