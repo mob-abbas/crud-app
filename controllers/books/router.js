@@ -21,6 +21,6 @@ router.delete("/delete", routeHandler.deleteBook);
 /**
  * API endpoint for updating a book's info. Payload needs to have the ID of the books that needs to be updated and the data/fields that needs updating.
  */
-router.put("/edit", routeHandler.updateBook);
+router.put("/edit/:bookId", routeHandler.updateBook);
 
 module.exports = {router}
