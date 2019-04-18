@@ -1,0 +1,35 @@
+h2.headings-main {
+    text-align: center;
+    padding: 1em 2em;
+    max-width: max-content;
+    margin: auto;
+    border-radius: 14px;
+    box-shadow: 0px 5px 20px -5px #e8e8e8;
+}
+
+span.focus {
+    display: block;
+    margin-top: 1em;
+}
+
+p {
+    padding: 1em 2em;
+    border-radius: 5px;
+    box-shadow: 0px 0px 10px #e8e8e8;
+}
+
+p {}
+
+span.focus:last-child {
+    font-style: italic;
+    margin-top: 2em;
+}
+
+span.focus span {display: block;margin-bottom: 2em;}
+
+a {
+    text-decoration: none;
+    padding: 1em 2em;
+    background-color: aliceblue;
+    border-radius: 10px;
+}

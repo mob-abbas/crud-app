@@ -56,19 +56,18 @@ module.exports = {
             return res.status(500).send({errorMessage: "An error occurred while updating the book", updateError});
         });
     },
-
+    /**
+    * First tries to find the book by ID sent in request, if not found, responds accordingly.
+    * If the book is found, a check is performed if it is already reserved by someone else --> This check is needed to adjust the book's quantity correctly
+    * Redis stores 2 keys, one for each user where book's key is stored against userId --> Should use HASH --> User can reserve more than one books --> Not sure how to implement HASH here.
+    * The other Redis key stores total quantity reserved for a specific book_id and it's value is incremented for each new reservation
+    * How do I know when a key expires so that I can update the book's quantity again (i.e. increase quantity when a reservation expires and book isn't checked-out) --> Not implemented --> Not sure how to :(
+    */
     reserveBook: async (req, res, next) => {
         let book_id = req.params.bookId;
-        if(!mongoose.Types.ObjectId.isValid(book_id)){
+        if(!verifyObjectId(book_id)){
             return res.status(400).send({errorMessage: "Invalid Book ID sent in URL params"});
         }
-        /**
-         * First tries to find the book by ID sent in request, if not found, responds accordingly.
-         * If the book is found, a check is performed if it is already reserved by someone else --> This check is needed to adjust the book's quantity correctly
-         * Redis stores 2 keys, one for each user where book's key is stored against userId --> Should use HASH --> User can reserve more than one books --> Not sure how to implement HASH here.
-         * The other Redis key stores total quantity reserved for a specific book_id and it's value is incremented for each new reservation
-         * How do I know when a key expires so that I can update the book's quantity again (i.e. increase quantity when a reservation expires and book isn't checked-out) --> Not implemented --> Not sure how to :(
-         */
         await Book.findById(book_id)
             .then(async bookToBeReserved => {
                 if(!bookToBeReserved){
@@ -111,7 +110,40 @@ module.exports = {
                             .catch(reserveError => {
                                 return res.status(500).send({errorMessage: "Error while reserving the book"})
                             });
-                })
+                });
             });
+    },
+
+    findBookById: async (req, res, next) => {
+        let isValidId = await verifyObjectId(req.params.bookId);
+        if(!isValidId){
+            console.log("not valid");
+            return res.status(400).send({errorMessage: "Invalid Book ID sent in URL params"});
+        }
+        
+        let book_id = req.params.bookId;
+        Book.findById(book_id)
+        .then(foundBook => {
+            if(!foundBook) {
+                return res.status(404).send({errorMessage: `The book for _id: ${book_id} was not found. Perhaps you sent a wrong key?`})
+            }
+            return res.status(200).send({book: foundBook});
+        })
+        .catch(findByIdError => {
+            return res.status(500).send({errorMessage: "There was an error finding the book. More info can be found in the error Object below.", findByIdError});
+        });
+    },
+
+    getAll: async (req, res, next) => {
+        Book.find().then(books => {
+            if (!books) {
+                return res.status(404).send({message: "No books were found. The database is probably empty."});
+            }
+            return res.status(200).send({books});
+        }).catch(findBooksError => {
+            return res.status(500).send({errorMessage: "There was an error fetching books data from DB, more info can be found in the error key below.", findBooksError});
+        });
     }
 }
+
+var verifyObjectId = async objectId => { return mongoose.Types.ObjectId.isValid(objectId)};

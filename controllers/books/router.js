@@ -28,4 +28,14 @@ router.put("/edit/:bookId", routeHandler.updateBook);
  */
 router.post("/reserve/:bookId", routeHandler.reserveBook);
 
+/**
+ * API endpoint for finding a book/fetching book's data by it's ID
+ */
+router.get("/findById/:bookId", routeHandler.findBookById);
+
+/**
+ * This is the default route, returns all the books saved in the database
+ */
+router.get("/", routeHandler.getAll);
+
 module.exports = {router}
