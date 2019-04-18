@@ -23,4 +23,9 @@ router.delete("/delete", routeHandler.deleteBook);
  */
 router.put("/edit/:bookId", routeHandler.updateBook);
 
+/**
+ * API endpoint for reserving a book to be checked out from the Library desk.
+ */
+router.post("/reserve/:bookId", routeHandler.reserveBook);
+
 module.exports = {router}
