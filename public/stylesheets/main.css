@@ -12,17 +12,14 @@ span.focus {
     margin-top: 1em;
 }
 
-p {
+div#main {
     padding: 1em 2em;
     border-radius: 5px;
     box-shadow: 0px 0px 10px #e8e8e8;
 }
 
-p {}
-
 span.focus:last-child {
     font-style: italic;
-    margin-top: 2em;
 }
 
 span.focus span {display: block;margin-bottom: 2em;}
@@ -32,4 +29,142 @@ a {
     padding: 1em 2em;
     background-color: aliceblue;
     border-radius: 10px;
+}
+
+div#chatbox {
+    display: inline-block;
+    position: fixed;
+    bottom: 0.2em;
+    right: 2em;
+    height: 300px;
+    width: 300px;
+    background-color: #ffffff;
+    border: 1px solid #00a9f4;
+    border-radius: 5px;
+    box-shadow: -15px 5px 60px -30px #8e8e8e;
+}
+
+span#inbox {
+    display: grid;
+    max-height: 250px;
+    overflow-y: scroll;
+}
+
+span#inbox::-webkit-scrollbar {
+    width: 0 !important;
+}
+
+span#messageField {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    overflow: hidden;
+    max-width: 300px;
+    border-top: 1px solid #00a9f4;
+    display: none;
+}
+
+input#message {
+    width: 300px;
+    box-sizing: border-box;
+    overflow: hidden;
+    padding: 5px 10px;
+    border: none;
+    height: 50px;
+    display: block;
+    font-size: 1em;
+    outline: none;
+    border-bottom-left-radius: 10px;
+    border-bottom-right-radius: 10px;
+}
+
+span#sendBtn {
+    display: inline-block;
+    position: absolute;
+    color: #fff;
+    bottom: 10px;
+    cursor: pointer;
+    right: 10px;
+    background-color: #03A9F4;
+    padding: 0.2em 0.5em;
+    border-radius: 3em;
+}
+
+span.receivedMsg, span.sentMsg{
+    max-width: max-content;
+    display: block;
+    padding: 0.5em 1em;
+    color: #fff;
+    background-color: #03A9F4;
+    border-radius: 3em;
+    margin-bottom: 5px;
+    justify-self: right;
+    position: relative;
+    right: 5px;
+}
+
+span.receivedMsg {
+    justify-self: left;
+    left: 5px;
+    background-color: #7187ff;
+}
+
+div#pre-chat {
+    height: inherit;
+    vertical-align: middle;
+    text-align: center;
+    background-color: #fff;
+    border-radius: 5px;
+}
+
+div#pre-chat span {
+    display: block;
+    text-align: center;
+    position: relative;
+    top: 15%;
+    max-width: max-content;
+    margin: auto;
+    padding: 1em;
+    background-color: #fff;
+    box-shadow: 0px 10px 10px 0px #ddd;
+}
+
+input#username {
+    width: 70%;
+    height: 30px;
+    display: block;
+    margin: auto;
+    position: relative;
+    top: 20%;
+    padding: 5px 15px;
+    border: 1px solid #b7b7b7;
+    box-shadow: 0px 9px 13px -10px #000;
+    outline: none;
+}
+
+button#startChatBtn {
+    position: relative;
+    top: 25%;
+    display: block;
+    margin: auto;
+    padding: 0.5em 1em;
+    background-color: #7187ff;
+    border: none;
+    color: #fff;
+    font-size: 1em;
+}
+
+div.disappear {
+    animation: disappear 1s forwards;
+}
+
+@keyframes disappear{
+    from{
+        transform: translateY(0);
+    }
+    to{
+        transform: translateY(250px);
+        opacity: 0;
+        display: none;
+    }
 }
