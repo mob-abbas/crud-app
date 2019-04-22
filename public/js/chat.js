@@ -1,5 +1,5 @@
 //make a connection
-var socket = io.connect("http://localhost:3000");
+var socket = io.connect(window.location.host);
 var sendButton = $("span#sendBtn");
 var messageBox = $("#message");
 var inbox = $("#inbox");
