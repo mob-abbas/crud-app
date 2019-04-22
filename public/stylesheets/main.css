@@ -31,7 +31,7 @@ a {
     border-radius: 10px;
 }
 
-div#chatbox {
+div#chatContainer {
     display: inline-block;
     position: fixed;
     bottom: 0.2em;
@@ -44,10 +44,22 @@ div#chatbox {
     box-shadow: -15px 5px 60px -30px #8e8e8e;
 }
 
+div#chatbox {
+    display: inline-block;
+    position: relative;
+    width: 300px;
+    height: 300px;
+    background-color: #ffffff;
+    border-radius: 5px;
+}
+
 span#inbox {
     display: grid;
     max-height: 250px;
     overflow-y: scroll;
+    width: 100%;
+    bottom: 70px;
+    position: absolute;
 }
 
 span#inbox::-webkit-scrollbar {
@@ -101,12 +113,14 @@ span.receivedMsg, span.sentMsg{
     justify-self: right;
     position: relative;
     right: 5px;
+    animation: slideLeft 0.5s 1 forwards;
 }
 
 span.receivedMsg {
     justify-self: left;
     left: 5px;
     background-color: #7187ff;
+    animation: slideRight 0.5s 1 forwards;
 }
 
 div#pre-chat {
@@ -156,6 +170,69 @@ button#startChatBtn {
 
 div.disappear {
     animation: disappear 1s forwards;
+}
+
+span#isTyping {
+    position: absolute;
+    display: none;
+    bottom: 50px;
+    padding: 0.1em 0.5em;
+    animation: typingAnimation 2s 3 forwards;
+}
+
+@keyframes slideRight{
+    from {
+        left: -140px;
+    }
+    to{
+        left: 5px;
+    }
+}
+
+@keyframes slideLeft{
+    from {
+        right: -140px;
+    }
+    to{
+        right: 5px;
+    }
+}
+@keyframes typingAnimation {
+    0% {
+        display: block;
+        opacity: 0;
+    }
+    10% {
+       opacity: 0.1; 
+    }
+    20% {
+        opacity: 0.3;
+    }
+    30% {
+        opacity: 0.6;
+    }
+    40% {
+        opacity: 0.9;
+    }
+    50% {
+        opacity: 1.0;
+    }
+    60% {
+        opacity: 0.9;
+    }
+    70% {
+        opacity: 0.6;
+    }
+    80% {
+        opacity: 0.3;
+    }
+    90% {
+        opacity: 0.1;
+    }
+    100%{
+        opacity: 0;
+        display: none;
+    }
 }
 
 @keyframes disappear{

@@ -1,5 +1,5 @@
 //make a connection
-var socket = io.connect(window.location.hostname);
+var socket = io.connect("http://localhost:3000");
 var sendButton = $("span#sendBtn");
 var messageBox = $("#message");
 var inbox = $("#inbox");
@@ -7,6 +7,7 @@ var usernameField = $("#username");
 var username = null;
 var startChatBtn = $("#startChatBtn");
 var preChatDiv = $("#pre-chat");
+var typingNotification = $("#isTyping");
 
 $(function(){
     usernameField.keypress(e => {
@@ -20,18 +21,24 @@ $(function(){
         if(key == 13)  // the enter key code
          {
             sendButton.click();
-            
+         } else {
+            socket.emit("typing", `${username} is typing...`);
          }
-         
        });
     
     //append new messages to the chatbox   
         socket.on("new_message", data => {
+            typingNotification.hide();
             inbox.append(`<span class="receivedMsg">${data.message}</span>`);
             if(inbox.height() >= 250) {
                 inbox.stop().animate({ scrollTop: inbox[0].scrollHeight}, 1000);
             }
         });
+    //listen for typing events emitted by server
+    socket.on("typing", data => {
+        typingNotification.html(`<i>${data}</i>`);
+        typingNotification.show();
+    })
 });
 
 function sendMessage(){

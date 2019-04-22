@@ -31,11 +31,14 @@ io.on('connection', socket => {
     var username = null;
     console.log("New User Connected");
     socket.on("new_message", data => {
-        console.log(data);
         socket.broadcast.emit("new_message", {message: data.message});
     });
 
     socket.on("username", data => {
         username = data.username;
     });
+
+    socket.on("typing", data => {
+        socket.broadcast.emit("typing", data);
+    })
 });
